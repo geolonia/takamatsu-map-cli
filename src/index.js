@@ -6,12 +6,12 @@ const path = require('path');
 const build = async (dataPath, targetPath) => {
 
   if (!fs.existsSync(dataPath)) {
-    console.error('dataPath がありません');
+    console.error('入力ファイルがありません');
     process.exit(1);
   }
 
   if (!fs.existsSync(targetPath)) {
-    console.error('targetPath がありません');
+    console.error('出力先がありません');
     process.exit(1);
   }
 
