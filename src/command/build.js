@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import Papa from 'papaparse';
+import { formatCsvHeader } from '../lib/formatCsvHeader.js';
 
 export const build = async (dataPath, targetPath) => {
 
@@ -17,29 +18,7 @@ export const build = async (dataPath, targetPath) => {
 
   const csv = fs.readFileSync(dataPath, 'utf-8');
   const { data } = Papa.parse(csv);
-
-  let header = data[0];
-  header = header.map((label) => {
-    if (
-      label === 'latitude' ||
-      label === 'lat'
-    ) {
-      return '緯度';
-    }
-    if (
-      label === 'longitude' ||
-      label === 'lon' ||
-      label === 'lng'
-    ) {
-      return '経度';
-    }
-    return label;
-  });
-
-  const newCSV = [
-    header,
-    ...data.slice(1),
-  ]
+  const newCSV = formatCsvHeader(data);
 
   fs.writeFileSync(path.join(targetPath, 'data.csv'), Papa.unparse(newCSV));
 
