@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/geolonia/takamatsu-smart-map-cli/issues"
   },
-  "homepage": "https://github.com/geolonia/takamatsu-smart-map-cli#readme"
+  "homepage": "https://github.com/geolonia/takamatsu-smart-map-cli#readme",
+  "dependencies": {
+    "papaparse": "^5.4.1"
+  }
 }
