@@ -3,7 +3,5 @@
 import { build } from './command/build.js';
 import { serve } from './command/serve.js';
 
-console.log(process.argv);
-
-serve();
+serve('./hello.csv');
 // build('./hello.csv', './test');

@@ -19,17 +19,17 @@
   <script type="text/javascript" src="https://geolonia.github.io/cityos-sdk/index.js"></script>
   <script type="application/javascript">
 
-    // const socket = new WebSocket('ws://localhost:___PORT___');
-
-    // socket.addEventListener('message',(message)=>{
-    //   map.setStyle(JSON.parse(message.data))
-    // });
+    const socket = new WebSocket('ws://localhost:___PORT___');
 
     const myCity = new city.Takamatsu.Map();
 
-    // myCity.on('load', () => {
-    //   myCity.loadCSV('./data.csv')
-    // })
+    myCity.on('load', () => {
+
+      socket.addEventListener('message', (message) => {
+        console.log(message.data);
+        // myCity.loadCSV(message.data)
+      });
+    })
   </script>
 </body>
 </html>
