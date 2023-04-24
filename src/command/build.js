@@ -1,10 +1,9 @@
 #!/usr/bin/env node
+import fs from 'fs';
+import path from 'path';
+import Papa from 'papaparse';
 
-const fs = require('fs');
-const path = require('path');
-const Papa = require('papaparse');
-
-const build = async (dataPath, targetPath) => {
+export const build = async (dataPath, targetPath) => {
 
   if (!fs.existsSync(dataPath)) {
     console.error('入力ファイルがありません');
@@ -50,8 +49,4 @@ const build = async (dataPath, targetPath) => {
   }
 
   fs.copyFileSync('./docs/index.html', path.join(targetPath, 'index.html'));
-}
-
-module.exports = {
-  build,
 }
