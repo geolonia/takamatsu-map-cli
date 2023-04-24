@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import http from 'http'
 import open from 'open'
+import Papa from 'papaparse'
 import { WebSocketServer } from 'ws'
 import watch from 'node-watch'
 const __dirname = path.resolve();
@@ -33,18 +34,11 @@ export const serve = (source) => {
 
         res.end(content)
         break;
-      case '/data.csv':
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'text/csv; charset=UTF-8')
-
-        //TODO: header の longitute, latitude を、緯度経度に変換する
-        const csv = fs.readFileSync(sourcePath, 'utf-8')
-        res.end(csv)
     }
   })
 
   server.listen(port, () => {
-    console.log(`Your map is running on http://localhost:${port}/\n`)
+    // console.log(`Your map is running on http://localhost:${port}/\n`)
     open(`http://localhost:${port}`)
   })
 
@@ -53,28 +47,27 @@ export const serve = (source) => {
   wss.on('connection', (ws) => {
     watch(path.dirname(sourcePath), { recursive: true, filter: /\.csv$/ }, (event, file) => {
 
-      // try {
-        console.log(sourcePath)
-        const csv = fs.readFileSync(sourcePath, 'utf-8')
-        console.log(csv)
-      //   const data = Papa.parse(csv, {header: true}).data
+      try {
+        const csv = fs.readFileSync(file, 'utf-8')
+        const data = Papa.parse(csv, { header: true }).data
 
-      //   const geojson = {
-      //     type: 'FeatureCollection',
-      //     features: data.map((d) => ({
-      //       type: 'Feature',
-      //       geometry: {
-      //         type: 'Point',
-      //         coordinates: [d.経度, d.緯度]
-      //       },
-      //       properties: d
-      //     }))
-      //   }
+        const geojson = {
+          type: 'FeatureCollection',
+          features: data.map((d) => ({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [d.経度, d.緯度]
+            },
+            properties: d
+          }))
+        }
 
-      //   ws.send(geojson)
-      // } catch (e) {
-      //   // Nothing to do
-      // }
+        ws.send(JSON.stringify(geojson))
+
+      } catch (e) {
+        // Nothing to do
+      }
     })
   });
 
