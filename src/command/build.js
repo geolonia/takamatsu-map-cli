@@ -7,12 +7,12 @@ import { formatCsvHeader } from '../lib/formatCsvHeader.js';
 export const build = async (dataPath, targetPath) => {
 
   if (!fs.existsSync(dataPath)) {
-    console.error('入力ファイルがありません');
+    console.error('Please specify input file');
     process.exit(1);
   }
 
   if (path.extname(dataPath) !== '.csv') {
-    console.error('CSV ファイルを指定してください');
+    console.error('Please specify csv file');
     process.exit(1);
   }
 
@@ -23,9 +23,11 @@ export const build = async (dataPath, targetPath) => {
   fs.writeFileSync(path.join(targetPath, 'data.csv'), Papa.unparse(newCSV));
 
   if (!fs.existsSync(targetPath)) {
-    console.error('出力先がありません');
+    console.error('Please specify output path');
     process.exit(1);
   }
 
   fs.copyFileSync('./docs/index.html', path.join(targetPath, 'index.html'));
+
+  console.log('Build complete');
 }

@@ -50,7 +50,7 @@ export const serve = (source) => {
   })
 
   server.listen(port, () => {
-    // console.log(`Your map is running on http://localhost:${port}/\n`)
+    console.log(`Your map is running on http://localhost:${port}/\n`)
     open(`http://localhost:${port}`)
   })
 
