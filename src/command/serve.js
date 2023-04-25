@@ -33,6 +33,7 @@ export const serve = (source) => {
         res.setHeader('Content-Type', 'text/html; charset=UTF-8')
 
         let content = fs.readFileSync(path.join(__dirname, '..', '..', 'docs', 'serve.html'), 'utf-8')
+        console.log(path.join(__dirname, '..', '..', 'docs', 'serve.html'))
         content = content.replace(/___PORT___/g, `${port}`)
 
         res.end(content)
