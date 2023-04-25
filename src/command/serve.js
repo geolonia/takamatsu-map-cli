@@ -8,7 +8,8 @@ import watch from 'node-watch'
 import Papa from 'papaparse'
 import { csv2geojson } from '../lib/csv2geojson.js'
 import { formatCsvHeader } from '../lib/formatCsvHeader.js'
-const __dirname = path.resolve();
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const serve = (source) => {
   const port = process.env.PORT || 8080
@@ -31,7 +32,7 @@ export const serve = (source) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'text/html; charset=UTF-8')
 
-        let content = fs.readFileSync(path.join(__dirname, 'docs', 'serve.html'), 'utf-8')
+        let content = fs.readFileSync(path.join(__dirname, '..', '..', 'docs', 'serve.html'), 'utf-8')
         content = content.replace(/___PORT___/g, `${port}`)
 
         res.end(content)
