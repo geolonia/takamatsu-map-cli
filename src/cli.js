@@ -15,7 +15,7 @@ if (command === 'build') {
   }
 
   if (!output) {
-    console.log('Please specify output file');
+    console.log('Please specify output path');
     process.exit(1);
   }
 
