@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import Papa from 'papaparse';
+import XLSX from 'xlsx';
 import { formatCsvHeader } from '../lib/formatCsvHeader.js';
 import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -13,7 +14,9 @@ export const build = async (dataPath, targetPath) => {
     process.exit(1);
   }
 
-  if (path.extname(dataPath) !== '.csv') {
+  const ext = path.extname(dataPath);
+
+  if (ext !== '.csv' && ext !== '.xlsx') {
     console.error('Please specify csv file');
     process.exit(1);
   }
