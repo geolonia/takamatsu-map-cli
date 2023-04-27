@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Takamatsu map cli | Preview</title>
+  <title>高松市スマートマップ</title>
   <style type="text/css">
   html, body, #map
   {
@@ -21,7 +21,7 @@
     const myCity = new city.Takamatsu.Map();
 
     myCity.on('load', () => {
-      myCity.loadCSV('./data.csv')
+      myCity.loadCSV(`./data.csv?timestamp=${new Date().getTime()}`)
     })
   </script>
 </body>
