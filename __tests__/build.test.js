@@ -50,6 +50,6 @@ describe('build', () => {
     }
 
     expect(process.exit).toHaveBeenCalledWith(1);
-    expect(console.error).toHaveBeenCalledWith('Please specify csv file');
+    expect(console.error).toHaveBeenCalledWith('Please specify CSV or Excel file');
   });
 });

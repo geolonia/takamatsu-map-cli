@@ -16,11 +16,24 @@ module.exports.build = async (dataPath, targetPath) => {
   const ext = path.extname(dataPath);
 
   if (ext !== '.csv' && ext !== '.xlsx') {
-    console.error('Please specify csv file');
+    console.error('Please specify CSV or Excel file');
     process.exit(1);
   }
 
-  const csv = fs.readFileSync(dataPath, 'utf-8');
+  let csv;
+
+  if (ext === '.csv') {
+
+    csv = fs.readFileSync(dataPath, 'utf-8');
+
+  } else if(ext === '.xlsx') {
+
+    const workbook = XLSX.readFile(dataPath);
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    csv = XLSX.utils.sheet_to_csv(sheet);
+  }
+
   const { data } = Papa.parse(csv);
   const newCSV = formatCsvHeader(data);
 
