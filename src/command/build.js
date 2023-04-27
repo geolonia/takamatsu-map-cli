@@ -1,13 +1,12 @@
 #!/usr/bin/env node
-import fs from 'fs';
-import path from 'path';
-import Papa from 'papaparse';
-import XLSX from 'xlsx';
-import { formatCsvHeader } from '../lib/formatCsvHeader.js';
-import { fileURLToPath } from 'url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export const build = async (dataPath, targetPath) => {
+const fs = require('fs');
+const path = require('path');
+const Papa = require('papaparse');
+const XLSX = require('xlsx');
+const { formatCsvHeader } = require('../lib/formatCsvHeader.js');
+
+module.exports.build = async (dataPath, targetPath) => {
 
   if (!fs.existsSync(dataPath)) {
     console.error('Please specify input file');

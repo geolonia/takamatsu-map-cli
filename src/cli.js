@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { build } from './command/build.js';
-import { serve } from './command/serve.js';
+const { build } = require('./command/build.js');
+const { serve } = require('./command/serve.js');
 
 const command = process.argv[2];
 
