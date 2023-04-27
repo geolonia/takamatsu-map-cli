@@ -1,7 +1,9 @@
-import Papa from 'papaparse';
-import { formatCsvHeader } from './formatCsvHeader.js';
+#!/usr/bin/env node
 
-export const csv2geojson = (csv) => {
+const Papa = require('papaparse')
+const { formatCsvHeader } = require('./formatCsvHeader')
+
+module.exports.csv2geojson = (csv) => {
 
   const { data } = Papa.parse(csv)
   const formatted =  formatCsvHeader(data)

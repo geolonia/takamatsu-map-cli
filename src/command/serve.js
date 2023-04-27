@@ -1,17 +1,16 @@
 #!/usr/bin/env node
-import fs from 'fs'
-import path from 'path'
-import http from 'http'
-import open from 'open'
-import { WebSocketServer } from 'ws'
-import watch from 'node-watch'
-import Papa from 'papaparse'
-import { csv2geojson } from '../lib/csv2geojson.js'
-import { formatCsvHeader } from '../lib/formatCsvHeader.js'
-import { fileURLToPath } from 'url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export const serve = (source) => {
+const fs = require('fs')
+const path = require('path')
+const http = require('http')
+const opener = require('opener')
+const { WebSocketServer } = require('ws')
+const watch = require('node-watch')
+const Papa = require('papaparse')
+const { csv2geojson } = require('../lib/csv2geojson')
+const { formatCsvHeader } = require('../lib/formatCsvHeader')
+
+module.exports.serve = (source) => {
   const port = process.env.PORT || 8080
 
   let sourcePath = path.resolve(process.cwd(), source);
@@ -52,7 +51,7 @@ export const serve = (source) => {
 
   server.listen(port, () => {
     console.log(`Your map is running on http://localhost:${port}/\n`)
-    open(`http://localhost:${port}`)
+    opener(`http://localhost:${port}`)
   })
 
   const wss = new WebSocketServer({ server });
