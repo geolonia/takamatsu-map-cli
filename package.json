@@ -21,7 +21,7 @@
   "dependencies": {
     "http": "^0.0.1-security",
     "node-watch": "^0.7.3",
-    "open": "^9.1.0",
+    "opener": "^1.5.2",
     "papaparse": "^5.4.1",
     "ws": "^8.13.0"
   },

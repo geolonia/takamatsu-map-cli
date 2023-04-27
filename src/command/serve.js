@@ -3,7 +3,7 @@
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
-const open = require('open')
+const opener = require('opener')
 const { WebSocketServer } = require('ws')
 const watch = require('node-watch')
 const Papa = require('papaparse')
@@ -51,7 +51,7 @@ module.exports.serve = (source) => {
 
   server.listen(port, () => {
     console.log(`Your map is running on http://localhost:${port}/\n`)
-    open(`http://localhost:${port}`)
+    opener(`http://localhost:${port}`)
   })
 
   const wss = new WebSocketServer({ server });
