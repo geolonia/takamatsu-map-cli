@@ -1,15 +1,16 @@
 #!/usr/bin/env node
-import fs from 'fs'
-import path from 'path'
-import http from 'http'
-import open from 'open'
-import { WebSocketServer } from 'ws'
-import watch from 'node-watch'
-import Papa from 'papaparse'
-import { csv2geojson } from '../lib/csv2geojson.js'
-import { formatCsvHeader } from '../lib/formatCsvHeader.js'
 
-export const serve = (source) => {
+const fs = require('fs')
+const path = require('path')
+const http = require('http')
+const open = require('open')
+const { WebSocketServer } = require('ws')
+const watch = require('node-watch')
+const Papa = require('papaparse')
+const { csv2geojson } = require('../lib/csv2geojson')
+const { formatCsvHeader } = require('../lib/formatCsvHeader')
+
+module.exports.serve = (source) => {
   const port = process.env.PORT || 8080
 
   let sourcePath = path.resolve(process.cwd(), source);

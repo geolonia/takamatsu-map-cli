@@ -1,4 +1,6 @@
-export const formatCsvHeader = (csv) => {
+#!/usr/bin/env node
+
+module.exports.formatCsvHeader = (csv) => {
   
   let header = csv[0];
   header = header.map((label) => {

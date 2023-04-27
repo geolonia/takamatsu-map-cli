@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import Papa from 'papaparse';
-import { build } from '../src/command/build.js';
-import { formatCsvHeader } from '../src/lib/formatCsvHeader.js';
+const fs = require('fs');
+const path = require('path');
+const Papa = require('papaparse');
+const { build } = require('../src/command/build.js');
 
 const testDataPath = path.join(__dirname, 'test_data.csv');
 const testOutputPath = path.join(__dirname, 'output');

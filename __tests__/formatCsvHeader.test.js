@@ -1,4 +1,4 @@
-import { formatCsvHeader } from '../src/lib/formatCsvHeader';
+const { formatCsvHeader } = require('../src/lib/formatCsvHeader.js');
 
 describe('formatCsvHeader', () => {
   it('should convert latitude and lat to 緯度', () => {
