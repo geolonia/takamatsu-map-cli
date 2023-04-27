@@ -15,7 +15,7 @@ module.exports.build = async (dataPath, targetPath) => {
 
   const ext = path.extname(dataPath);
 
-  if (ext !== '.csv' && ext !== '.xlsx') {
+  if (ext !== '.csv' && ext !== '.xlsx' && ext !== '.xls') {
     console.error('Please specify CSV or Excel file');
     process.exit(1);
   }
@@ -26,7 +26,7 @@ module.exports.build = async (dataPath, targetPath) => {
 
     csv = fs.readFileSync(dataPath, 'utf-8');
 
-  } else if(ext === '.xlsx') {
+  } else if(ext === '.xlsx' || ext === '.xls') {
 
     const workbook = XLSX.readFile(dataPath);
     const sheetName = workbook.SheetNames[0];
