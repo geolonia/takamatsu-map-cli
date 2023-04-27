@@ -3,8 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import Papa from 'papaparse';
 import { formatCsvHeader } from '../lib/formatCsvHeader.js';
-import { fileURLToPath } from 'url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const build = async (dataPath, targetPath) => {
 

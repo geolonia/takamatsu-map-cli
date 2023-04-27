@@ -8,8 +8,6 @@ import watch from 'node-watch'
 import Papa from 'papaparse'
 import { csv2geojson } from '../lib/csv2geojson.js'
 import { formatCsvHeader } from '../lib/formatCsvHeader.js'
-import { fileURLToPath } from 'url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const serve = (source) => {
   const port = process.env.PORT || 8080
