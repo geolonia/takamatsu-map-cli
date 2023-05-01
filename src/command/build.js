@@ -3,8 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 const Papa = require('papaparse');
-const XLSX = require('xlsx');
 const { formatCsvHeader } = require('../lib/formatCsvHeader.js');
+const { getFileContent } = require('../lib/getFileContent.js');
 
 module.exports.build = async (dataPath, targetPath) => {
 
@@ -20,21 +20,8 @@ module.exports.build = async (dataPath, targetPath) => {
     process.exit(1);
   }
 
-  let csv;
+  const data = await getFileContent(dataPath);
 
-  if (ext === '.csv') {
-
-    csv = fs.readFileSync(dataPath, 'utf-8');
-
-  } else if(ext === '.xlsx' || ext === '.xls') {
-
-    const workbook = XLSX.readFile(dataPath);
-    const sheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[sheetName];
-    csv = XLSX.utils.sheet_to_csv(sheet);
-  }
-
-  const { data } = Papa.parse(csv);
   const newCSV = formatCsvHeader(data);
 
   if (!fs.existsSync(targetPath)) {

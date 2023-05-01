@@ -3,9 +3,8 @@
 const Papa = require('papaparse')
 const { formatCsvHeader } = require('./formatCsvHeader')
 
-module.exports.csv2geojson = (csv) => {
+module.exports.csv2geojson = (data) => {
 
-  const { data } = Papa.parse(csv)
   const formatted =  formatCsvHeader(data)
   const header = formatted[0]
 

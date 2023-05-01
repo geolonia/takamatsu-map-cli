@@ -9,6 +9,7 @@ const watch = require('node-watch')
 const Papa = require('papaparse')
 const { csv2geojson } = require('../lib/csv2geojson')
 const { formatCsvHeader } = require('../lib/formatCsvHeader')
+const { getFileContent } = require('../lib/getFileContent')
 
 module.exports.serve = (source) => {
   const port = process.env.PORT || 8080
@@ -19,11 +20,13 @@ module.exports.serve = (source) => {
     throw `${sourcePath}: No such file or directory`
   }
 
-  if (path.extname(sourcePath) !== '.csv') {
-    throw `${sourcePath}: Not a CSV file`
+  const ext = path.extname(sourcePath);
+
+  if (ext !== '.csv' && ext !== '.xlsx' && ext !== '.xls') {
+    throw `${sourcePath}: Not a CSV or Excel file`
   }
 
-  const server = http.createServer((req, res) => {
+  const server = http.createServer(async (req, res) => {
     const url = (req.url || '').replace(/\?.*/, '')
 
     switch (url) {
@@ -40,8 +43,7 @@ module.exports.serve = (source) => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'text/csv; charset=UTF-8')
 
-        const csv = fs.readFileSync(sourcePath, 'utf-8')
-        const { data } = Papa.parse(csv)
+        const data = await getFileContent(sourcePath)
         const formatted = formatCsvHeader(data)
 
         res.end(Papa.unparse(formatted))
@@ -57,21 +59,22 @@ module.exports.serve = (source) => {
   const wss = new WebSocketServer({ server });
 
   wss.on('connection', (ws) => {
-
-    watch(path.dirname(sourcePath), { recursive: true, filter: /\.csv$/ }, (event, file) => {
+    watch(path.dirname(sourcePath), { recursive: true, filter: /\.(csv|xlsx|xls)$/ }, async (event, file) => {
 
       try {
         
-        const csv = fs.readFileSync(file, 'utf-8')
+        const data = await getFileContent(sourcePath)
+
         
-        const geojson = csv2geojson(csv)
+        
+        console.log('File updated')
+        // const geojson = csv2geojson(data)
   
-        ws.send(JSON.stringify(geojson))
+        // ws.send(JSON.stringify(geojson))
 
       } catch (e) {
         // Nothing to do
       }
     })
   });
-
 }
